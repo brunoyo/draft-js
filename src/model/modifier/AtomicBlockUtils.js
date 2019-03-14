@@ -39,6 +39,7 @@ const AtomicBlockUtils = {
     editorState: EditorState,
     entityKey: string,
     character: string,
+    subtype: string
   ): EditorState {
     const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
@@ -56,14 +57,14 @@ const AtomicBlockUtils = {
     const asAtomicBlock = DraftModifier.setBlockType(
       afterSplit,
       insertionTarget,
-      'atomic',
+      `atomic-${subtype}`,
     );
 
     const charData = CharacterMetadata.create({entity: entityKey});
 
     let atomicBlockConfig = {
       key: generateRandomKey(),
-      type: 'atomic',
+      type: `atomic-${subtype}`,
       text: character,
       characterList: List(Repeat(charData, character.length)),
     };
